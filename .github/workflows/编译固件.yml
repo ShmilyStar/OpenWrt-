@@ -13,6 +13,9 @@
 name: 编译固件
 
 on:
+  push:
+    paths:
+      - 'build/**'
   repository_dispatch:
   workflow_dispatch:
  
