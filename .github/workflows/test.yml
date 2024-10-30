@@ -1,0 +1,24 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Compile
+        id: compile
+        run: |
+          echo "Starting compilation..."
+          # 在这里添加编译命令
+          echo "Compilation completed successfully."
+
+      - name: Trigger Compile Workflow
+        if: steps.compile.outcome == 'success'
+        uses: ./.github/workflows/编译固件.yml  # 调用 compile.yml
