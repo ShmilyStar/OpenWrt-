@@ -121,14 +121,17 @@ jobs:
         fi
 
     - name: 上传配置文件在 Github Artifacts
-      id: compile
       uses: actions/upload-artifact@main
       with:
         name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
+
+    - name: Compile
+      id: compile
       run: |
-          echo "Starting compilation..."
-          echo "Compilation completed successfully."
+        echo "Starting compilation..."
+        # 在这里添加您的编译命令
+        echo "Compilation completed successfully."
         
     - name: 触发启动开始编译
       id: gitpush
