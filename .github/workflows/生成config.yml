@@ -115,7 +115,7 @@ jobs:
           if [[ -n "$(git status --porcelain)" ]]; then
           git add config/${{ env.DEVICE_NAME }}.txt
           git commit -m "Add ${{ env.DEVICE_NAME }}.txt to config directory"
-          git push
+          git push https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git
             else
           echo "No changes to commit"
           fi
