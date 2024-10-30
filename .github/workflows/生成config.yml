@@ -47,12 +47,14 @@ jobs:
 
     - name: 设置环境变量
       run: |
+        echo "SOURCE: $SOURCE"
         echo "REPO_URL: $REPO_URL"
         echo "REPO_BRANCH: $REPO_BRANCH"
         echo "DEVICE_NAME: $DEVICE_NAME"
         echo "CONFIG_FILE: $CONFIG_FILE"
         echo "DIY_P1_SH: $DIY_P1_SH"
         echo "DIY_P2_SH: $DIY_P2_SH"
+
         
     - name: 安装编译环境
       env:
@@ -124,10 +126,10 @@ jobs:
         
     - name: 触发系统编译
       run: |
-        git pull origin main || echo "No changes to pull"
         mkdir -p build
-        echo "$(date +'%Y-%m-%d %H:%M:%S')" > build/start
+        echo "${SOURCE}-${REPO_BRANCH}-${DEVICE_NAME}-$(date +%Y年%m月%d号%H时%M分%S秒)" > build/start
+        cd build
         git config --local user.name "ShmilyStar"
-        git add build/start
+        git add start
         git commit -m "Update start file with current date"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
