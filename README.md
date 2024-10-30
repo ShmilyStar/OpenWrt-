@@ -1,13 +1,21 @@
 
 # 该项目可云编译 OpenWrt
 权限配置： 您需要确保 GITHUB_TOKEN 拥有适当的权限：
+
 转到您的 GitHub 仓库，点击“设置”。在左侧菜单中找到“Actions”部分。确保“Workflow permissions”选择了“Read and write permissions”。
+
 自定义设置build目录下setting.ini文件
+
 REPO_URL 为源码链接
+
 REPO_BRANCH 为分支名称
+
 CONFIG_FILE 为配置文件路径
+
 DEVICE_NAME 为设备名称
+
 DIY_P1_SH 为自定义设置1
+
 DIY_P2_SH 为自定义设置2
 
 
