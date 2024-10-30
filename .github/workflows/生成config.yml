@@ -125,15 +125,3 @@ jobs:
       with:
         name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
-
-    - name: Compile
-      id: compile
-      run: |
-        echo "Starting compilation..."
-        # 在这里添加您的编译命令
-        echo "Compilation completed successfully."
-        
-    - name: 触发启动开始编译
-      id: gitpush
-      if: steps.compile.outcome == 'success' 
-      uses: ./.github/workflows/编译固件.yml  # 调用 compile.yml
