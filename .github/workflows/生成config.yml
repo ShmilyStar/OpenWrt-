@@ -112,13 +112,13 @@ jobs:
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.txt config/
         git config --local user.name "ShmilyStar"  # 替换为你的名字
-          if [[ -n "$(git status --porcelain)" ]]; then
+        if [[ -n "$(git status --porcelain)" ]]; then
           git add config/${{ env.DEVICE_NAME }}.txt
           git commit -m "Add ${{ env.DEVICE_NAME }}.txt to config directory"
-          git push https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git
-            else
+          git push https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        else
           echo "No changes to commit"
-          fi
+        fi
 
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
