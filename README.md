@@ -8,6 +8,7 @@
 确保“Workflow permissions”选择了“Read and write permissions”。
 
 自定义设置build目录下setting.ini文件
+
 REPO_URL 为源码链接
 REPO_BRANCH 为分支名称
 CONFIG_FILE 为配置文件路径
