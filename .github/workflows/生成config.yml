@@ -130,3 +130,4 @@ jobs:
         git config --local user.name "ShmilyStar"
         git add build/start
         git commit -m "Update start file with current date" || echo "No changes to commit"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
