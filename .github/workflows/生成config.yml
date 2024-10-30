@@ -38,7 +38,7 @@ jobs:
     - name: 检查
       uses: actions/checkout@main
 
-    - name: Read variables from setting.ini
+    - name: 读取自定义设置
       id: read_ini
       run: |
         while IFS='=' read -r key value; do
@@ -47,7 +47,7 @@ jobs:
           fi
         done < build/setting.ini
 
-    - name: Use the variables
+    - name: 设置环境变量
       run: |
         echo "REPO_URL: $REPO_URL"
         echo "REPO_BRANCH: $REPO_BRANCH"
@@ -105,16 +105,16 @@ jobs:
         
     - name: 生成配置文件
       id: compile
-      run: cp openwrt/.config openwrt/${{ env.DEVICE_NAME }}.txt
+      run: cp openwrt/.config openwrt/${{ env.DEVICE_NAME }}.config
 
-    - name: Commit and push changes
+    - name: 推送配置文件到仓库
       run: |
         mkdir -p config
-        cp openwrt/${{ env.DEVICE_NAME }}.txt config/
+        cp openwrt/${{ env.DEVICE_NAME }}.config config/
         git config --local user.name "ShmilyStar"  # 替换为你的名字
         if [[ -n "$(git status --porcelain)" ]]; then
-          git add config/${{ env.DEVICE_NAME }}.txt
-          git commit -m "Add ${{ env.DEVICE_NAME }}.txt to config directory"
+          git add config/${{ env.DEVICE_NAME }}.config
+          git commit -m "Add ${{ env.DEVICE_NAME }}.config to config directory"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
         else
           echo "No changes to commit"
@@ -124,4 +124,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: "${{ env.DEVICE_NAME }}_.config"
-        path: openwrt/${{ env.DEVICE_NAME }}.txt
+        path: openwrt/${{ env.DEVICE_NAME }}.config
