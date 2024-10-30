@@ -1,16 +1,28 @@
-name: Trigger Another Workflow
+name: Update Start File
 
 on:
   workflow_dispatch:
 
 jobs:
-  trigger-workflow:
+  update_start_file:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger another workflow
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Update start file with current date
         run: |
-          curl -X POST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Content-Type: application/json" \
-          https://api.github.com/repos/shenxianpeng/shenxianpeng/actions/workflows/YOUR_WORKFLOW_FILE.yml/dispatches \
-          --data '{"ref": "main", "event_type": "special_repository"}'
+          # 确保 build 目录存在
+          mkdir -p build
+          # 更新 start 文件内容为当前日期
+          echo "$(date +%Y年%m月%d号%H时%M分%S秒)" > build/start
+          
+          # 配置 Git
+          git config --local user.name "ShmilyStar"  # 替换为你的用户名
+          
+          # 提交更改
+          git add build/start
+          git commit -m "Update start file with current date"
+          
+          # 推送更改
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
