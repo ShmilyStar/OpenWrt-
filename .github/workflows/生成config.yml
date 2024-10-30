@@ -67,7 +67,7 @@ jobs:
 
     - name: Use the variables
       run: |
-        echo "REPO_URL: $REPO_URL"
+        echo "REPO_URL: $SOURCE_CODE"
         echo "REPO_BRANCH: $REPO_BRANCH"
         echo "DEVICE_NAME: $DEVICE_NAME"
         echo "CONFIG_FILE: $CONFIG_FILE"
