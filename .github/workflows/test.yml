@@ -1,26 +1,16 @@
-name: Update Start File
+name: Trigger Another Workflow
 
 on:
   workflow_dispatch:
 
 jobs:
-  update-file:
+  trigger-workflow:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create and commit start file
-        env:
-          SOURCE: 'example-source'
-          REPO_BRANCH: 'main'
-          DEVICE_NAME: 'example-device'
+      - name: Trigger another workflow
         run: |
-            mkdir -p build
-            echo "${SOURCE}-${REPO_BRANCH}-${DEVICE_NAME}-$(date +%Y年%m月%d号%H时%M分%S秒)" > build/start
-            cd build
-            git config --local user.name "ShmilyStar"
-            git add start
-            git commit -m "Update start file with current date"
-            git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
+            https://api.github.com/repos/ShmilyStar/OpenWrt-Actions-Compile/actions/workflows/编译固件.yml/dispatches \
+            -d '{"ref":"main"}'
