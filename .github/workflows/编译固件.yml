@@ -15,6 +15,11 @@ name: OpenWrt Builder-7981r128
 on:
   repository_dispatch:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'build/start'
  
 env:
   REPO_URL: https://github.com/levinhuang2013/immortalwrt-mt798x
