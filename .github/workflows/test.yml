@@ -1,3 +1,4 @@
+# .github/workflows/main-workflow.yml
 name: Main Workflow
 
 on:
@@ -6,19 +7,11 @@ on:
       - main
 
 jobs:
-  compile:
+  trigger-workflow-b:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Compile
-        id: compile
-        run: |
-          echo "Starting compilation..."
-          # 在这里添加编译命令
-          echo "Compilation completed successfully."
-
-      - name: Trigger Compile Workflow
-        if: steps.compile.outcome == 'success'
-        uses: ./.github/workflows/compile.yml  # 调用 compile.yml
+      - name: Trigger Another Workflow
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          workflow: 'conpile.yml'  # 目标工作流的文件名
+          token: ${{ secrets.GITHUB_TOKEN }} # GitHub Token
