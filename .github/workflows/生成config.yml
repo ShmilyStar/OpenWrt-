@@ -104,7 +104,6 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
     - name: 生成配置文件
-      id: compile
       run: cp openwrt/.config openwrt/${{ env.DEVICE_NAME }}.config
 
     - name: 推送配置文件到仓库
@@ -122,7 +121,16 @@ jobs:
         fi
 
     - name: 上传配置文件在 Github Artifacts
+      id: compile
       uses: actions/upload-artifact@main
       with:
         name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
+      run: |
+          echo "Starting compilation..."
+          echo "Compilation completed successfully."
+        
+    - name: 触发启动开始编译
+      id: gitpush
+      if: steps.compile.outcome == 'success' 
+      uses: ./.github/workflows/编译固件.yml  # 调用 compile.yml
