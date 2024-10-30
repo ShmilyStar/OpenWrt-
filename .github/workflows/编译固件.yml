@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'build/start'
+      - 'build'
  
 env:
   REPO_URL: https://github.com/levinhuang2013/immortalwrt-mt798x
