@@ -123,5 +123,5 @@ jobs:
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
       with:
-        name: "${{ env.DEVICE_NAME }}_.config"
+        name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
