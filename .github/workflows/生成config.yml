@@ -123,10 +123,10 @@ jobs:
         path: openwrt/${{ env.DEVICE_NAME }}.config
         
     - name: 触发系统编译
-        run: |
-          git pull origin main || echo "No changes to pull"
-          mkdir -p build
-          echo "$(date +'%Y-%m-%d %H:%M:%S')" > build/start
-          git config --local user.name "ShmilyStar"
-          git add build/start
-          git commit -m "Update start file with current date" || echo "No changes to commit"
+      run: |
+        git pull origin main || echo "No changes to pull"
+        mkdir -p build
+        echo "$(date +'%Y-%m-%d %H:%M:%S')" > build/start
+        git config --local user.name "ShmilyStar"
+        git add build/start
+        git commit -m "Update start file with current date" || echo "No changes to commit"
