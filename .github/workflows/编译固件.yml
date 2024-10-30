@@ -29,8 +29,6 @@ env:
   TZ: Asia/Shanghai
    
 jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
   build:
     runs-on: ubuntu-22.04
 
