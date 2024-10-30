@@ -18,4 +18,4 @@ jobs:
           git config --local user.name "ShmilyStar"
           git add start
           git commit -m "Update start file with current date"
-          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+          git push --force https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
