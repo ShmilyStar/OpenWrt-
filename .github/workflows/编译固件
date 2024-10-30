@@ -17,12 +17,8 @@ on:
   workflow_dispatch:
  
 env:
-  REPO_URL: https://github.com/levinhuang2013/immortalwrt-mt798x
-  REPO_BRANCH: 7981r128-v7.6.7.2
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: hanwckf/ax3000.config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -33,10 +29,28 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
+    - name: 检查
       uses: actions/checkout@main
 
-    - name: Initialization environment
+    - name: 读取自定义设置
+      id: read_ini
+      run: |
+        while IFS='=' read -r key value; do
+          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
+            echo "$key=$value" >> $GITHUB_ENV
+          fi
+        done < build/setting.ini
+
+    - name: 设置环境变量
+      run: |
+        echo "REPO_URL: $REPO_URL"
+        echo "REPO_BRANCH: $REPO_BRANCH"
+        echo "DEVICE_NAME: $DEVICE_NAME"
+        echo "CONFIG_FILE: $CONFIG_FILE"
+        echo "DIY_P1_SH: $DIY_P1_SH"
+        echo "DIY_P2_SH: $DIY_P2_SH"
+
+    - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -50,33 +64,33 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: Clone source code
+    - name: 下载源码
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone --depth=1 $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Load custom feeds
+    - name: 加载软件源
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Update feeds
+    - name: 更新软件源
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: 改变golange版本和tailscale版本
       run: cd openwrt && git clone -b master --single-branch https://github.com/immortalwrt/packages.git packages_master && rm -rf ./feeds/packages/lang/golang && rm -rf ./feeds/packages/net/tailscale && mv ./packages_master/lang/golang ./feeds/packages/lang && mv ./packages_master/net/tailscale ./feeds/packages/net && rm -rf ./packages_master
 
-    - name: Install feeds
+    - name: 安装软件源
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: 展示golange和tailscale版本
       run: cd openwrt && cat ./feeds/packages/lang/golang/golang/Makefile | grep GO_VERSION && cat feeds/packages/net/tailscale/Makefile | grep PKG_VERSION
       
-    - name: Load custom configuration
+    - name: 加载自定义配置
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
@@ -84,7 +98,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-    - name: Download package
+    - name: 下载软件包
       id: package
       run: |
         cd openwrt
@@ -105,7 +119,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Compile the firmware
+    - name: 编译固件
       id: compile
       run: |
         cd openwrt
@@ -116,18 +130,18 @@ jobs:
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
-    - name: Check space usage
+    - name: 检查可用容量
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
+    - name: 上传bin文件
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
-    - name: Organize files
+    - name: 组织文件
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
@@ -136,14 +150,14 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: Upload firmware directory
+    - name: 上传固件
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Generate release tag
+    - name: 生成标签
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
@@ -152,7 +166,7 @@ jobs:
         echo "immortalwrt-mt798x${{ env.DEVICE_NAME }}, lan: 192.168.8.1, openclash(dev), passwall(ss-rust, trojan-plus), adguardhome, openappfilter, samba, msd-lite, rndis, usb2, usb3, w/o memory shrink, zerotier, luci-app-mtwifi-cfg, ttyd, diskman, mt_wifi-v7.6.6.1, mt7981-fw-20230411, 9921-support-SX-7981R128-for-mtk-sdk-k5.4.284.patch" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: Upload firmware to release
+    - name: 上传固件至release
       uses: softprops/action-gh-release@master
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
@@ -162,13 +176,13 @@ jobs:
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
-    - name: Delete workflow runs
+    - name: 删除旧Actions
       uses: Mattraks/delete-workflow-runs@main
       with:
         retain_days: 3
         keep_minimum_runs: 3
 
-    - name: Remove old Releases
+    - name: 移除旧Releases
       uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
