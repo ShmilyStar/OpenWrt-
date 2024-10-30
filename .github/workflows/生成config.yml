@@ -56,7 +56,7 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-      - name: Read variables from setting.ini
+    - name: Read variables from setting.ini
         id: read_ini
         run: |
           while IFS='=' read -r key value; do
@@ -65,7 +65,7 @@ jobs:
             fi
           done < build/setting.ini
 
-      - name: Use the variables
+    - name: Use the variables
         run: |
           echo "REPO_URL: $REPO_URL"
           echo "REPO_BRANCH: $REPO_BRANCH"
