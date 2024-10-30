@@ -10,10 +10,15 @@
 自定义设置build目录下setting.ini文件
 
 REPO_URL 为源码链接
+
 REPO_BRANCH 为分支名称
+
 CONFIG_FILE 为配置文件路径
+
 DEVICE_NAME 为设备名称
+
 DIY_P1_SH 为自定义设置1
+
 DIY_P2_SH 为自定义设置2
 
 
