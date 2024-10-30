@@ -3,6 +3,10 @@ name: Update Start File
 on:
   workflow_dispatch:
 
+env:
+  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+  TZ: Asia/Shanghai
+
 jobs:
   update_start_file:
     runs-on: ubuntu-latest
