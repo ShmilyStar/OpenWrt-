@@ -29,16 +29,8 @@ env:
   TZ: Asia/Shanghai
    
 jobs:
-
-  run_compile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute Compile Logic
-        run: |
-          cd ${GITHUB_WORKSPACE}
-          # 在这里执行 compile 相关的命令
-          echo "Running compile tasks..."
-          
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
   build:
     runs-on: ubuntu-22.04
 
