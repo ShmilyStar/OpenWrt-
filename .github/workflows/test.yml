@@ -21,4 +21,4 @@ jobs:
 
       - name: Trigger Compile Workflow
         if: steps.compile.outcome == 'success'
-        uses: ./.github/workflows/编译固件.yml  # 调用 compile.yml
+        uses: ./.github/workflows/compile.yml  # 调用 compile.yml
