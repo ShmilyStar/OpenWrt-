@@ -18,7 +18,7 @@ on:
   workflow_run:
     workflows: ["生成config"]
     types:
-      - completed
+      - success
  
 env:
   FEEDS_CONF: feeds.conf.default
