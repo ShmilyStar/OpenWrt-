@@ -57,20 +57,20 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
 
     - name: Read variables from setting.ini
-        id: read_ini
-        run: |
-          while IFS='=' read -r key value; do
-            if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
-              echo "$key=$value" >> $GITHUB_ENV
-            fi
-          done < build/setting.ini
+      id: read_ini
+      run: |
+        while IFS='=' read -r key value; do
+          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
+            echo "$key=$value" >> $GITHUB_ENV
+          fi
+        done < build/setting.ini
 
     - name: Use the variables
-        run: |
-          echo "REPO_URL: $REPO_URL"
-          echo "REPO_BRANCH: $REPO_BRANCH"
-          echo "DEVICE_NAME: $DEVICE_NAME"
-          echo "CONFIG_FILE: $CONFIG_FILE"
+      run: |
+        echo "REPO_URL: $REPO_URL"
+        echo "REPO_BRANCH: $REPO_BRANCH"
+        echo "DEVICE_NAME: $DEVICE_NAME"
+        echo "CONFIG_FILE: $CONFIG_FILE"
           
     - name: 下载源码
       working-directory: /workdir
