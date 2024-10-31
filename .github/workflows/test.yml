@@ -13,7 +13,7 @@ jobs:
 
       - name: Trigger Another Workflow
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}  # 使用 GitHub 提供的令牌
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的令牌
         run: |
           curl -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
