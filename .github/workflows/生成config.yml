@@ -25,7 +25,6 @@ on:
 
 env:
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: bulid/deconfig.config
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   TZ: Asia/Shanghai
   
@@ -54,6 +53,7 @@ jobs:
         echo "DEVICE_NAME: $DEVICE_NAME"
         echo "DIY_P1_SH: $DIY_P1_SH"
         echo "DIY_P2_SH: $DIY_P2_SH"
+        echo "CONFIG_FILE: bulid/deconfig.config"
 
         
     - name: 安装编译环境
