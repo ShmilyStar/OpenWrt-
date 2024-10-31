@@ -123,13 +123,3 @@ jobs:
       with:
         name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
-        
-    - name: 触发系统编译
-      run: |
-        mkdir -p build
-        echo "${SOURCE_CODE}-${REPO_BRANCH}-${DEVICE_NAME}-$(date +%Y年%m月%d号%H时%M分%S秒)" > build/start
-        cd build
-        git config --local user.name "ShmilyStar"
-        git add start
-        git commit -m "Update start file with current date"
-        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
