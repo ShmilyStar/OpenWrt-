@@ -1,6 +1,7 @@
 name: Main Workflow
 on:
-  push:
+  repository_dispatch:
+  workflow_dispatch:
 jobs:
   main-job:
     runs-on: ubuntu-latest
