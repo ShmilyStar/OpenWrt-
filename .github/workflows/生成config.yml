@@ -40,7 +40,7 @@ jobs:
       id: read_ini
       run: |
         while IFS='=' read -r key value; do
-          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
+          if [[ $key!= \#* && $key && ($key == "SOURCE_CODE" || $key == "REPO_URL" || $key == "REPO_BRANCH" || $key == "DEVICE_NAME" || $key == "DIY_P1_SH" || $key == "DIY_P2_SH") ]]; then
             echo "$key=$value" >> $GITHUB_ENV
           fi
         done < build/setting.ini
