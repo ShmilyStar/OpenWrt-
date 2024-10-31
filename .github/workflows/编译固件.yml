@@ -14,15 +14,6 @@ name: 编译固件
 on:
   repository_dispatch:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["生成config"] 
-    types:
-      - completed
-    filters:
-      statuses:
-        - success
-      branches:
-        only: openwrt-21.02
   
 env:
   FEEDS_CONF: feeds.conf.default
