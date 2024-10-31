@@ -16,8 +16,8 @@ jobs:
         run: |
           EC=$(grep "REPO_URL" build/setting.ini | cut -d'=' -f2)
           BD=$(grep "REPO_BRANCH" build/setting.ini | cut -d'=' -f2)
-          echo "EC=$REPO_URL" >> $GITHUB_ENV
-          echo "BD=$REPO_BRANCH" >> $GITHUB_ENV
+          echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
+          echo "REPO_BRANCH=$REPO_BRANCH" >> $GITHUB_ENV
 
       - name: Print environment variables
         run: |
