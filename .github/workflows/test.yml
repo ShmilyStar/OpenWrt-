@@ -1,42 +1,26 @@
-name: test
+name: OpenWrt Builder-7981r128
 
 on:
   repository_dispatch:
   workflow_dispatch:
- 
+
+
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-
+  read-and-set:
+    runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: 检查
-      uses: actions/checkout@main
+      - name: Read values from setting.ini and set environment variables
+        run: |
+          cd build
+          EC=$(grep "REPO_URL" setting.ini | cut -d'=' -f2)
+          BD=$(grep "REPO_BRANCH" setting.ini | cut -d'=' -f2)
+          echo "EC=$REPO_URL" >> $GITHUB_ENV
+          echo "BD=$REPO_BRANCH" >> $GITHUB_ENV
 
-    - name: 读取自定义设置
-      id: read_ini
-      run: |
-        while IFS='=' read -r key value; do
-          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
-            echo "$key=$value" >> $GITHUB_ENV
-          fi
-        done < build/setting.ini
-
-    - name: 设置环境变量
-      run: |
-        echo "SOURCE_CODE: $SOURCE_CODE"
-        echo "REPO_URL: $REPO_URL"
-        echo "REPO_BRANCH: $REPO_BRANCH"
-        echo "DEVICE_NAME: $DEVICE_NAME"
-        echo "CONFIG_FILE: $CONFIG_FILE"
-        echo "DIY_P1_SH: $DIY_P1_SH"
-        echo "DIY_P2_SH: $DIY_P2_SH"
-    
-    - name: 生成release标签
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=${{ env.SOURCE_CODE }}-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "${{ env.SOURCE_CODE }}-${{ env.DEVICE_NAME }}, lan: 192.168.8.1," >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
+      - name: Print environment variables
+        run: |
+          echo "REPO_URL value: ${{ env.REPO_URL }}"
+          echo "REPO_BRANCH value: ${{ env.REPO_BRANCH }}"
