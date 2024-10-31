@@ -13,11 +13,13 @@
 name: 编译固件
 
 on:
-  push:
-    paths:
-      - 'build/**'
   repository_dispatch:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["test"] 
+    types:
+      - succeeded
+  
  
 env:
   REPO_URL: https://github.com/levinhuang2013/immortalwrt-mt798x
