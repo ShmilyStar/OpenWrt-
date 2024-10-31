@@ -158,16 +158,16 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_firmware_${{ env.SOURCE_CODE }}_${{ env.REPO_BRANCH }}_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: 生成release标签
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=${{ env.SOURCE_CODE }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}" >> $GITHUB_OUTPUT
+        echo "release_tag=${{ env.SOURCE_CODE }}_${{ env.REPO_BRANCH }}_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}" >> $GITHUB_OUTPUT
         touch release.txt
-        echo "${{ env.SOURCE_CODE }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_NAME }}, lan: 192.168.8.1," >> release.txt
+        echo "${{ env.SOURCE_CODE }}_${{ env.REPO_BRANCH }}_${{ env.DEVICE_NAME }}, lan: 192.168.8.1," >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件至release
