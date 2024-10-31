@@ -14,10 +14,10 @@ jobs:
           script: |
             const actionCore = require('@actions/core');
             const ghInstance = require('@actions/github');
-            const { context } = ghInstance;
+            const { myContext } = ghInstance;
             await ghInstance.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: myContext.repo.owner,
+              repo: myContext.repo.repo,
               workflow_id: 'secondary-workflow.yml',
-              ref: context.ref,
+              ref: myContext.ref,
             });
