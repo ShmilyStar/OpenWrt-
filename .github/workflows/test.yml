@@ -1,11 +1,22 @@
-name: test
+name: Trigger Another Workflow
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # 允许手动触发此工作流
 
 jobs:
-  job1:
+  trigger:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Step 1
-        run: echo "This is the main workflow."
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Trigger Another Workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}  # 使用 GitHub 提供的令牌
+        run: |
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/ShmilyStar/OpenWrt-Actions-Compile/actions/workflows/编译固件.yml/dispatches \
+            -d '{"ref":"main"}'
