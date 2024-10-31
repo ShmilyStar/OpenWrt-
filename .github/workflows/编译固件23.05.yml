@@ -18,7 +18,12 @@ on:
   workflow_run:
     workflows: ["生成config"] 
     types:
-      - succeeded
+      - completed
+    filters:
+      statuses:
+        - success
+      branches:
+        only: openwrt-21.02
   
 env:
   FEEDS_CONF: feeds.conf.default
