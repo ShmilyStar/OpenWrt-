@@ -14,9 +14,8 @@ jobs:
 
       - name: Read values from setting.ini and set environment variables
         run: |
-          cd build
-          EC=$(grep "REPO_URL" setting.ini | cut -d'=' -f2)
-          BD=$(grep "REPO_BRANCH" setting.ini | cut -d'=' -f2)
+          EC=$(grep "REPO_URL" build/setting.ini | cut -d'=' -f2)
+          BD=$(grep "REPO_BRANCH" build/setting.ini | cut -d'=' -f2)
           echo "EC=$REPO_URL" >> $GITHUB_ENV
           echo "BD=$REPO_BRANCH" >> $GITHUB_ENV
 
