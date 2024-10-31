@@ -41,7 +41,7 @@ jobs:
       run: |
         while IFS='=' read -r key value; do
           if [[ $key!= \#* && $key ]]; then
-            echo "$key=${!key}"
+            echo "$key=${!key}" >> $GITHUB_ENV
           fi
         done < build/setting.ini
 
