@@ -37,21 +37,7 @@ jobs:
     - name: 检查
       uses: actions/checkout@main
 
-    - name: Read values from setting.ini and set environment variables
-        run: |
-          cd build
-          SOURCE_CODE=$(grep "SOURCE_CODE" setting.ini | cut -d'=' -f2)
-          REPO_URL=$(grep "REPO_URL" setting.ini | cut -d'=' -f2)
-          REPO_BRANCH=$(grep "REPO_BRANCH" setting.ini | cut -d'=' -f2)
-          DEVICE_NAME=$(grep "DEVICE_NAME" setting.ini | cut -d'=' -f2)
-          DIY_P1_SH=$(grep "DIY_P1_SH" setting.ini | cut -d'=' -f2)
-          DIY_P2_SH=$(grep "DIY_P2_SH" setting.ini | cut -d'=' -f2)          
-          echo "SOURCE_CODE=$SOURCE_CODE" >> $GITHUB_ENV
-          echo "REPO_URL=$REPO_URL" >> $GITHUB_ENV
-          echo "REPO_BRANCH=$REPO_BRANCH" >> $GITHUB_ENV
-          echo "DEVICE_NAME=$DEVICE_NAME" >> $GITHUB_ENV
-          echo "DIY_P1_SH=$DIY_P1_SH" >> $GITHUB_ENV
-          echo "DIY_P2_SH=$DIY_P2_SH" >> $GITHUB_ENV           
+          
 
     - name: 安装编译环境
       env:
