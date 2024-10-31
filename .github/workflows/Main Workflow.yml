@@ -12,7 +12,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const core = require('@actions/core');
+            const actionCore = require('@actions/core');
             const github = require('@actions/github');
             const { context } = github;
             await github.rest.actions.createWorkflowDispatch({
