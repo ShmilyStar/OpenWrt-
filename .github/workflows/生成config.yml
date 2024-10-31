@@ -40,8 +40,8 @@ jobs:
       id: read_ini
       run: |
         while IFS='=' read -r key value; do
-          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
-            echo "$key=$value" >> $GITHUB_ENV
+          if [[ $key!= \#* && $key && $key!= "CONFIG_FILE" ]]; then
+            echo "$key=${!key}" >> $GITHUB_ENV
           fi
         done < build/setting.ini
 
