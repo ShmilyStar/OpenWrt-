@@ -5,14 +5,18 @@ jobs:
   main-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Do something
+        run: echo "Main job completed."
+      - name: Trigger secondary workflow
+        uses: actions/github-script@v6
         with:
-          python-version: '3.10'
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-      - name: Run tests
-        run: pytest tests/
+          script: |
+            const core = require('@actions/core');
+            const github = require('@actions/github');
+            const { context } = github;
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'secondary-workflow.yml',
+              ref: context.ref,
+            });
