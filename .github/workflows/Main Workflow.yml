@@ -13,9 +13,9 @@ jobs:
         with:
           script: |
             const actionCore = require('@actions/core');
-            const github = require('@actions/github');
-            const { context } = github;
-            await github.rest.actions.createWorkflowDispatch({
+            const ghInstance = require('@actions/github');
+            const { context } = ghInstance;
+            await ghInstance.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'secondary-workflow.yml',
