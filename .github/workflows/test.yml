@@ -3,23 +3,9 @@ name: Update Start File
 on:
   workflow_dispatch:
 
-env:
-  REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-  TZ: Asia/Shanghai
-
 jobs:
-  update_start_file:
+  job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Update start file with current date
-        run: |
-          mkdir -p build
-          echo "${SOURCE_CODE}-${REPO_BRANCH}-${DEVICE_NAME}-$(date +%Y年%m月%d号%H时%M分%S秒)" > build/start
-          cd build
-          git config --local user.name "ShmilyStar"
-          git add start
-          git commit -m "Update start file with current date"
-          git push --force https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+      - name: Step 1
+        run: echo "This is the main workflow."
