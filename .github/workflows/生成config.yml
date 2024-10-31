@@ -37,7 +37,7 @@ jobs:
     - name: 检查
       uses: actions/checkout@main
 
-    - name: Read values from setting.ini and set environment variables
+    - name: 读取自定义设置
       run: |
         cd build
         SOURCE_CODE=$(grep "SOURCE_CODE" setting.ini | cut -d'=' -f2)
