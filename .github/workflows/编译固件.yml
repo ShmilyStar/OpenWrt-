@@ -16,7 +16,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
   workflow_run:
-    workflows: ["test"] 
+    workflows: ["生成config"] 
     types:
       - succeeded
   
