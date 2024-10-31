@@ -50,7 +50,7 @@ jobs:
         echo "REPO_URL: $REPO_URL"
         echo "REPO_BRANCH: $REPO_BRANCH"
         echo "DEVICE_NAME: $DEVICE_NAME"
-        echo "CONFIG: $CONFIG_FILE"
+        echo "CONFIG_FILE: $CONFIG"
         echo "DIY_P1_SH: $DIY_P1_SH"
         echo "DIY_P2_SH: $DIY_P2_SH"
 
