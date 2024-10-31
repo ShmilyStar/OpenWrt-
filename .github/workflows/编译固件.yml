@@ -22,12 +22,7 @@ on:
   
  
 env:
-  REPO_URL: https://github.com/levinhuang2013/immortalwrt-mt798x
-  REPO_BRANCH: 7981r128-v7.6.7.2
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: hanwckf/ax3000.config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -40,6 +35,25 @@ jobs:
     steps:
     - name: 检查
       uses: actions/checkout@main
+
+    - name: 读取自定义设置
+      id: read_ini
+      run: |
+        while IFS='=' read -r key value; do
+          if [[ $key != \#* && $key ]]; then  # 跳过注释行和空行
+            echo "$key=$value" >> $GITHUB_ENV
+          fi
+        done < build/setting.ini
+
+    - name: 设置环境变量
+      run: |
+        echo "SOURCE_CODE: $SOURCE_CODE"
+        echo "REPO_URL: $REPO_URL"
+        echo "REPO_BRANCH: $REPO_BRANCH"
+        echo "DEVICE_NAME: $DEVICE_NAME"
+        echo "CONFIG_FILE: $CONFIG_FILE"
+        echo "DIY_P1_SH: $DIY_P1_SH"
+        echo "DIY_P2_SH: $DIY_P2_SH"
 
     - name: 部署编译环境
       env:
