@@ -44,16 +44,6 @@ jobs:
           fi
         done < build/setting.ini
 
-    - name: 设置环境变量
-      run: |
-        echo "SOURCE_CODE: $SOURCE_CODE"
-        echo "REPO_URL: $REPO_URL"
-        echo "REPO_BRANCH: $REPO_BRANCH"
-        echo "DEVICE_NAME: $DEVICE_NAME"
-        echo "CONFIG_FILE: $CONFIG"
-        echo "DIY_P1_SH: $DIY_P1_SH"
-        echo "DIY_P2_SH: $DIY_P2_SH"
-
     - name: 部署编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
