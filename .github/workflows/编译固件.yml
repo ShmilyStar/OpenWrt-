@@ -18,7 +18,7 @@ on:
   workflow_run:
     workflows: ["test"] 
     types:
-      - completed
+      - succeeded
   
  
 env:
