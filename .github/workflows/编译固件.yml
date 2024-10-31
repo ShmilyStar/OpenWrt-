@@ -165,9 +165,9 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=${{ env.SOURCE_CODE }}-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}" >> $GITHUB_OUTPUT
+        echo "release_tag=${{ env.SOURCE_CODE }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}" >> $GITHUB_OUTPUT
         touch release.txt
-        echo "${{ env.SOURCE_CODE }}-${{ env.DEVICE_NAME }}, lan: 192.168.8.1," >> release.txt
+        echo "${{ env.SOURCE_CODE }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_NAME }}, lan: 192.168.8.1," >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件至release
