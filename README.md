@@ -24,8 +24,7 @@ DIY_P2_SH 为自定义设置2
 - [hanwckf](https://github.com/hanwckf/immortalwrt-mt798x)
 - [padavanonly](https://github.com/padavanonly/immortalwrtARM) -->
 
-|          [lean](https://github.com/coolsnowwolf/lede)         |        [天灵](https://github.com/1715173329)               |              [P3TERX](https://github.com/P3TERX/Actions-OpenWrt)               |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| <img width="60" src="https://avatars.githubusercontent.com/u/31687149?v=4"/> | <img width="60" src="https://avatars.githubusercontent.com/u/22235437?v=4" /> | <img width="60" src="https://avatars.githubusercontent.com/u/25927179?v=4" /> |
-|          [kenzok8](https://github.com/kenzok8/openwrt-packages)         |              [hanwckf](https://github.com/hanwckf/immortalwrt-mt798x)               |              [padavanonly](https://github.com/padavanonly/immortalwrtARM)               |
+|          [lean](https://github.com/coolsnowwolf/lede)         |        [天灵](https://github.com/1715173329)               |              [P3TERX](https://github.com/P3TERX/Actions-OpenWrt)               |  
+| <img width="60" src="https://avatars.githubusercontent.com/u/31687149?v=4"/> | <img width="60" src="https://avatars.githubusercontent.com/u/22235437?v=4" /> | <img width="60" src="https://avatars.githubusercontent.com/u/25927179?v=4" /> |  
+|          [kenzok8](https://github.com/kenzok8/openwrt-packages)         |              [hanwckf](https://github.com/hanwckf/immortalwrt-mt798x)               |              [padavanonly](https://github.com/padavanonly/immortalwrtARM)               |  
 | <img width="60" src="https://avatars.githubusercontent.com/u/39034242?v=4"/> | <img width="60" src="https://avatars.githubusercontent.com/u/27666983?v=4" /> | <img width="60" src="https://avatars.githubusercontent.com/u/83120842?v=4" /> |
