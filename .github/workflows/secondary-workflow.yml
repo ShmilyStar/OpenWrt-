@@ -1,0 +1,12 @@
+name: Secondary Workflow
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  secondary-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Secondary Step
+        run: echo "Secondary workflow step."
