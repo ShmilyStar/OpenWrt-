@@ -40,22 +40,12 @@ jobs:
       id: read_ini
       run: |
         while IFS='=' read -r key value; do
-          if [[ $key!= \#* && $key && $key!= "CONFIG_FILE" ]]; then
+          if [[ $key!= \#* && $key ]]; then
             echo "$key=${!key}" >> $GITHUB_ENV
           fi
         done < build/setting.ini
+        CONFIG_FILE="build/config.config"
 
-    - name: 设置环境变量
-      run: |
-        echo "SOURCE_CODE: $SOURCE_CODE"
-        echo "REPO_URL: $REPO_URL"
-        echo "REPO_BRANCH: $REPO_BRANCH"
-        echo "DEVICE_NAME: $DEVICE_NAME"
-        echo "DIY_P1_SH: $DIY_P1_SH"
-        echo "DIY_P2_SH: $DIY_P2_SH"
-        echo "CONFIG_FILE: bulid/deconfig.config"
-
-        
     - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
