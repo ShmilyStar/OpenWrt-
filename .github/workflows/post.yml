@@ -1,21 +1,21 @@
-name: Upload Config File
+name: Upload deconfig.config
 on:
   push:
     branches:
-      - main # 可根据你的需求调整触发的分支
+      - main # 可根据实际情况调整触发分支
 jobs:
-  upload-config:
+  upload-deconfig:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Copy config/deconfig.config file to test directory
+      - name: Copy deconfig.config to patch directory
         run: |
           cp build/deconfig.config patch/
       - name: Commit and push changes
         run: |
           git config --global user.email "your_email@example.com"
           git config --global user.name "Your Name"
-          git add patch/config
-          git commit -m "Upload config file to test directory"
+          git add patch/deconfig.config
+          git commit -m "Upload deconfig.config to patch directory"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
