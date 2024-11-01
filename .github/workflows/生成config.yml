@@ -102,7 +102,6 @@ jobs:
 
     - name: 推送配置文件到仓库
       run: |
-        git pull origin main || echo "No changes to pull"
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.config config/
         git config --local user.name "ShmilyStar"  # 替换为你的名字
