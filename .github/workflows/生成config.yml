@@ -104,11 +104,12 @@ jobs:
       run: |
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.config config/
-        git config --global user.name "ShmilyStar"
+        git config user.name "github-actions@github.org"
+        git config --global user.name "Github Actions"
         git add config/${{ env.DEVICE_NAME }}.config
         TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
         git commit -m "Commit at $TIMESTAMP"
-        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        git push --force https://${{ secrets.REPO_TOKEN }}@github.com/${{github.repository}}" HEAD:main
 
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
