@@ -13,7 +13,6 @@ jobs:
           cp build/config.github/workspace/test/
       - name: Commit and push changes
         run: |
-          git config --global user.email "your_email@example.com"
           git config --global user.name "Your Name"
           git add.github/workspace/test/config
           git commit -m "Upload config file to test directory"
