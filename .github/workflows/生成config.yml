@@ -120,3 +120,9 @@ jobs:
       with:
         name: "${{ env.DEVICE_NAME }}.config"
         path: openwrt/${{ env.DEVICE_NAME }}.config
+
+    - name: 删除旧工作流
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 3
+        keep_minimum_runs: 3
