@@ -104,10 +104,9 @@ jobs:
       run: |
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.config config/
-        git config --local user.name "ShmilyStar"  # 替换为你的名字
         git add config/${{ env.DEVICE_NAME }}.config
-        git commit -m "Add ${{ env.DEVICE_NAME }}.config to config directory"
-        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        git commit -m "Update $(date +%Y-%m%d-%H%M%S)"
+        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{github.repository}}" HEAD:main
 
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
