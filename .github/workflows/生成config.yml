@@ -104,7 +104,8 @@ jobs:
       run: |
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.config config/
-        git config --local user.name "ShmilyStar"  # 替换为你的名字
+        git config --global user.email "your_email@example.com"
+        git config --global user.name "Your Name"
         git add config/${{ env.DEVICE_NAME }}.config
         TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
         git commit -m "Commit at $TIMESTAMP"
