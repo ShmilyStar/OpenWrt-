@@ -1,8 +1,7 @@
 name: Upload deconfig.config
 on:
-  push:
-    branches:
-      - main # 可根据实际情况调整触发分支
+  repository_dispatch:
+  workflow_dispatch:
 jobs:
   upload-deconfig:
     runs-on: ubuntu-latest
