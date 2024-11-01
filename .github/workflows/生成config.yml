@@ -104,7 +104,7 @@ jobs:
       run: |
         mkdir -p config
         cp openwrt/${{ env.DEVICE_NAME }}.config config/
-        git config user.email noreply@github.com
+        git config user.email "noreply@github.com"
         git config --local user.name "GitHub" 
         git add config/${{ env.DEVICE_NAME }}.config
         git commit -m "Update $(date +%Y-%m%d-%H%M%S)"
