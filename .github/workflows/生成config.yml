@@ -108,7 +108,7 @@ jobs:
         git config --local user.name "ShmilyStar"  # 替换为你的名字
         git add config/${{ env.DEVICE_NAME }}.config
         git commit -m "Add ${{ env.DEVICE_NAME }}.config to config directory" || echo "No changes to commit"
-        git push -force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
 
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
