@@ -109,7 +109,7 @@ jobs:
         git add config/${{ env.DEVICE_NAME }}.config
         TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
         git commit -m "Push files to repo directory at $TIMESTAMP"
-        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
+        git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{github.repository}}.git HEAD:main
 
     - name: 上传配置文件在 Github Artifacts
       uses: actions/upload-artifact@main
