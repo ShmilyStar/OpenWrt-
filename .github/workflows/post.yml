@@ -17,5 +17,6 @@ jobs:
           git config --global user.email "your_email@example.com"
           git config --global user.name "Your Name"
           git add patch/deconfig.config
-          git commit -m "Upload deconfig.config to patch directory"
+          TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S)
+          git commit -m "Commit at $TIMESTAMP"
           git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
