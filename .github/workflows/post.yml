@@ -1,0 +1,21 @@
+name: Upload Config File
+on:
+  push:
+    branches:
+      - main # 可根据你的需求调整触发的分支
+jobs:
+  upload-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Copy config/deconfig.config file to test directory
+        run: |
+          cp build/deconfig.config patch/
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "your_email@example.com"
+          git config --global user.name "Your Name"
+          git add patch/config
+          git commit -m "Upload config file to test directory"
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ShmilyStar/OpenWrt-Actions-Compile.git HEAD:main
